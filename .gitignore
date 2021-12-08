@@ -1,0 +1,19 @@
+.idea
+.DS_Store
+.buildkite
+.git
+
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+#ignore node_modules
+node_modules/**
+
+auto/**
+
+/-config.py

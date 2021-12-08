@@ -1,0 +1,41 @@
+service: fbleads-webhooks-function # NOTE: Don't put the word "google" in here
+
+provider:
+  name: google
+  stage: api
+  runtime: python37
+  region: asia-northeast1
+  project: GCP_PROJECT
+
+plugins:
+  - serverless-google-cloudfunctions
+
+package:
+  exclude:
+    - node_modules/**
+    - .gitignore
+    - .git/**
+
+functions:
+  leadads-webhook:
+    handler: fb_webhook
+    memorySize: 512
+    environment:
+      ACCESS_TOKEN: ACCESS_TOKEN_VALUE
+    labels:
+      project: fbleads
+    events:
+      - http: webhook
+
+  leadads-process:
+    handler: fb_process
+    memorySize: 512
+    environment:
+      ACCESS_TOKEN: ACCESS_TOKEN_VALUE
+    labels:
+      project: fbleads
+    events:
+      - event:
+          eventType: providers/cloud.pubsub/eventTypes/topic.publish
+          resource: 'projects/data-services-asia-dev/topics/fblead-data'
+  

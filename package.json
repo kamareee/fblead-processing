@@ -1,0 +1,13 @@
+{
+  "name": "fb-lead",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "deploy": "serverless deploy"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "serverless": "^1.45.1",
+    "serverless-google-cloudfunctions": "^2.3.2"
+  }
+}
