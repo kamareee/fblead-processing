@@ -34,7 +34,7 @@ def fb_webhook(request):
         if not verify_token or not challenge:
             return 'Missing hub.verify_token and hub.challenge params'
 
-        if verify_token != 'iprop123':
+        if verify_token != os.environ.get('VERIFY_TOKEN'):
             return 'Verify token does not match'
         # We echo the received challenge back to Facebook to finish
         # the verification process.
@@ -154,8 +154,7 @@ def fb_process(event, context):
                 # System user access token file path.
                 # Note: System user needs to be an admin of the subscribed page.
                 access_token = os.environ.get('ACCESS_TOKEN')
-                access_token_new = 'EAACWJRXUjyoBAFvAGnO39AcCSSO65h1MMBnemuZCuuo2PHsK21LMMTxtuZAEEZCHSU5Iqxs5abXv5rh9D0LhFqAiDWXxPcZBUMFgadoUNOhg9xQDBV0cY4dZBdobkXM47AZBasFvxxPZA7fB1F0EVdQTNZBwnMZAviJqi0mNjT9oBFpSnEKHuWzcvPc9L22jABzxZArENzCfVgNwZDZD'
-
+          
                 # Call graph API to request lead info with the lead ID
                 # and access token.
                 leadgen_uri = (graph_api_url + '/' + leadgen_id +
@@ -228,7 +227,7 @@ def fb_process(event, context):
                     listing_id = int(str(ad_data['campaign_name']).split("_")[4].split("-")[1])
                     print(f"Listing Id => {listing_id}")
 
-                # Payload for iDeveloper API
+                # Payload for product API
                 payload_idev = {
                                  'CountryCode': 'MY',
                                  'DevelopmentID': int(listing_id),
